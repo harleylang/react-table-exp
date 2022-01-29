@@ -113,7 +113,7 @@ const Example1 = () => {
         <button onClick={handleFilterReset}>Clear All Filters</button>
         <RadioPagination
           group={"paginationToggle"}
-          options={[5, 10, 20]}
+          options={[5, 10, 20, 50]}
           defaultOptionI={1}
           setPagination={handlePagingLength}
         />
