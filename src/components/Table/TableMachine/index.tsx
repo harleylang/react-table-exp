@@ -71,7 +71,13 @@ const TableMachine = createMachine<ITableMachineContext>(
       filtering: {
         always: {
           actions: ["rowsTransformedByFilters"],
-          target: "paginating"
+          target: "sorting"
+        }
+      },
+      sorting: {
+        always: {
+          // TODO: setup action to handle sorting here
+          target: 'paginating'
         }
       },
       paginating: {
