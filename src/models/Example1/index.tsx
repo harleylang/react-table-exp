@@ -21,7 +21,6 @@ const TableStateMachine = SmartTable.withConfig(
     ...SmartTable.context,
     header: header,
     rowsOG: rows,
-    rowsF: rows,
   }
 );
 
