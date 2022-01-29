@@ -5,11 +5,13 @@ import { useState } from "react";
 const RadioGroup = ({
   group,
   options,
+  filter,
   setFilter,
   clearFilter,
 }: {
   group: string;
   options: string[];
+  filter?: (value: string) => Filter;
   setFilter?: (f: Filter) => void;
   clearFilter?: (id: string) => void;
 }) => {
@@ -18,22 +20,8 @@ const RadioGroup = ({
   const handleSelected = (event: React.ChangeEvent<HTMLInputElement>) => {
     let value = event.currentTarget.value;
     setSelected(value);
-    setFilter &&
-      setFilter({
-        id: "color",
-        logic: (rows: ITable["rows"]) => {
-          // custom logic for handling input changes!
-          let targetColumn = 2;
-          if (value === "all") return rows;
-          let newRows = [];
-          for (let r = 0; r < rows.length; r++) {
-            let row = rows[r];
-            let target = row[targetColumn];
-            if (target === value) newRows.push(row);
-          }
-          return newRows;
-        },
-      });
+    filter && setFilter && setFilter(filter(value));
+
   };
   const handleClear = () => {
     setSelected("all");

@@ -85,6 +85,21 @@ const Example1 = () => {
           key={`radio-color-${state.context.ripcord}`}
           group="colors"
           options={colourOptions}
+          filter={(value) => { return {
+            id: "color",
+            logic: (rows: ITable["rows"]) => {
+              // custom logic for handling input changes!
+              let targetColumn = 2;
+              if (value === "all") return rows;
+              let newRows = [];
+              for (let r = 0; r < rows.length; r++) {
+                let row = rows[r];
+                let target = row[targetColumn];
+                if (target === value) newRows.push(row);
+              }
+              return newRows;
+            }
+          }}}
           clearFilter={clearFilter}
           setFilter={updateFilter}
         />
