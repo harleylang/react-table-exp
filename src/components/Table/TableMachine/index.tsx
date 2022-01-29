@@ -4,9 +4,9 @@ import { ITableMachineContext } from "components/Table";
 import filterClear from "./filterClear";
 import filterReset from "./filterReset";
 import filterUpdate from "./filterUpdate";
-import updatePage from "./updatePage";
+import pageIndex from "./pageIndex";
+import pageLength from "./pageLength";
 import paginateRows from "./paginateRows";
-import updatePagination from "./updatePagination";
 import filterRows from "./filterRows";
 
 const TableMachine = createMachine<ITableMachineContext>(
@@ -41,8 +41,8 @@ const TableMachine = createMachine<ITableMachineContext>(
           FILTER_CLEAR: { actions: ["filterClear"], target: "filtering" },
           FILTER_RESET: { actions: ["filterReset"], target: "filtering" },
           FILTER_UPDATE: { actions: ["filterUpdate"], target: "filtering" },
-          PAGE: { actions: ["updatePage"], target: "filtering" },
-          PAGINATION: { actions: ["updatePagination"], target: "filtering" },
+          PAGING_INDEX: { actions: ["pageIndex"], target: "filtering" },
+          PAGING_LENGTH: { actions: ["pageLength"], target: "filtering" },
         },
       },
     },
@@ -52,8 +52,8 @@ const TableMachine = createMachine<ITableMachineContext>(
       filterClear: filterClear,
       filterReset: filterReset,
       filterUpdate: filterUpdate,
-      updatePage: updatePage,
-      updatePagination: updatePagination,
+      pageIndex: pageIndex,
+      pageLength: pageLength,
       filterRows: filterRows,
       paginateRows: paginateRows,
     },

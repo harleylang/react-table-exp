@@ -20,6 +20,7 @@ const RadioPagination = ({
   };
   return (
     <div>
+      <b>Page Length</b>
       {options.map((option) => (
         <div key={`radio-group-${group}-opt-${option}`}>
           <input

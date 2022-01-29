@@ -50,9 +50,9 @@ const Example1 = () => {
   const handleFilterUpdate = (filter: IFilter) => updateMachine("FILTER_UPDATE", { filter });
   const handleFilterReset = () => updateMachine("FILTER_RESET");
 
-  const handlePage = (page: number) => updateMachine("PAGE", { page });
-  const handlePagination = (pagination: number) =>
-    updateMachine("PAGINATION", { pagination });
+  const handlePagingIndex = (page: number) => updateMachine("PAGING_INDEX", { page });
+  const handlePagingLength = (pagination: number) =>
+    updateMachine("PAGING_LENGTH", { pagination });
 
   const pageRows =
     state.context.rowsOG.length === state.context.rowsF.length
@@ -115,14 +115,14 @@ const Example1 = () => {
           group={"paginationToggle"}
           options={[5, 10, 20]}
           defaultOptionI={1}
-          setPagination={handlePagination}
+          setPagination={handlePagingLength}
         />
       </FilterRow>
       <Table header={state.context.header} rows={state.context.rows} />
       <PageNav
         pages={pages}
         current={state.context.page}
-        setPage={handlePage}
+        setPage={handlePagingIndex}
       />
     </Container>
   );

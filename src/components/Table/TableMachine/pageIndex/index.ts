@@ -2,7 +2,7 @@ import { assign } from "xstate";
 
 import { ITableMachineContext } from "../..";
 
-const updatePage = assign<ITableMachineContext>(
+const pageIndex = assign<ITableMachineContext>(
   ({ ...rest }: ITableMachineContext, event: any) => {
     let pageUpdate: number = (event as any).page;
     return {
@@ -12,4 +12,4 @@ const updatePage = assign<ITableMachineContext>(
   }
 );
 
-export default updatePage;
+export default pageIndex;

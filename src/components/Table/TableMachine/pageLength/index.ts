@@ -2,7 +2,7 @@ import { assign } from "xstate";
 
 import { ITableMachineContext } from "../..";
 
-const updatePagination = assign<ITableMachineContext>(
+const pageLength = assign<ITableMachineContext>(
   ({ ...rest }: ITableMachineContext, event: any) => {
     let paginationUpdate: number = (event as any).pagination;
     return {
@@ -12,4 +12,4 @@ const updatePagination = assign<ITableMachineContext>(
   }
 );
 
-export default updatePagination;
+export default pageLength;
