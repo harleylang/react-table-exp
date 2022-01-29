@@ -14,6 +14,39 @@ import rowsTransformedByPagination from "./rowsTransformedByPagination";
 
 import setup from './setup';
 
+/**
+ * TableMachine -- state machine
+ * @description
+ * A state machine that encapsulates ALL logic that transforms the data 
+ * presented within a `<Table />` component. Simply drop in the master list
+ * of content you want to display, hook up inputs to control filters, sorting,
+ * and pagination, and send messaages to the machine. From there, this machine 
+ * will automatically transform the row data based on the user's selected 
+ * filters, sorting, and pagination configuration.
+ * @example
+  // setup your header and rows
+  const header = [['whatever']];
+  const rows = [['test']];
+  // configure machine by dropping-in header and rows to display
+  const configuredTableMachine = TableMachine.withConfig(
+    {},
+    {
+      ...TableMachine.context,
+      header: header,
+      rows: rows,
+    }
+  );
+  // within a parent component, define the state machine hook and link
+  // the table component to that state
+  const Example = () => {
+    const [state, updateMachine] = useMachine(configuredTableMachine, {
+      devTools: true,
+    });
+    return (
+      <Table header={state.context.header} rows={state.context.rows} />
+    );
+  }
+ */
 const TableMachine = createMachine<ITableMachineContext>(
   {
     id: "tableMachine",
