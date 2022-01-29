@@ -17,7 +17,7 @@ const clearFilter = assign<ISmartTableContext>(
     return {
       ...rest,
       filters: newFilters,
-      rows: newRows,
+      rowsF: newRows,
     };
   }
 );
