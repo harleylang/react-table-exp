@@ -2,6 +2,7 @@ import { useMachine } from "@xstate/react";
 import styled from "styled-components";
 
 import Input from "components/Input";
+import PageNav from "components/PageNav";
 import RadioGroup from "components/RadioGroup";
 import Table from "components/Table";
 import SmartTable, { Filter } from "machines/SmartTable";
@@ -33,6 +34,8 @@ const Example1 = () => {
   const updateFilter = (filter: Filter) => updateMachine("UPDATE", { filter });
   const resetFilters = () => updateMachine("RESET");
 
+  const handlePage = (page: number) => updateMachine("PAGE", { page });
+
   return (
     <Container>
       <h3>Example 1</h3>
@@ -56,6 +59,7 @@ const Example1 = () => {
         <button onClick={resetFilters}>Clear All Filters</button>
       </FilterRow>
       <Table header={state.context.header} rows={state.context.rows} />
+      <PageNav pages={state.context.rows.length / state.context.pagination} current={state.context.page} setPage={handlePage} />
     </Container>
   );
 };

@@ -4,6 +4,7 @@ import ITable from "components/Table/ITable";
 import updateFilter from "./updateFilter";
 import clearFilter from "./clearFilter";
 import resetFilters from "./resetFilters";
+import updatePage from "./updatePage";
 
 export interface ISmartTableContext {
   headerOG: ITable["header"];
@@ -12,6 +13,8 @@ export interface ISmartTableContext {
   rows: ITable["rows"];
   filters: Filter[];
   ripcord: string;
+  pagination: number;
+  page: number;
 }
 
 export interface Filter {
@@ -30,6 +33,8 @@ const SmartTable = createMachine<ISmartTableContext>(
       rows: [[]],
       filters: [],
       ripcord: "",
+      pagination: 10,
+      page: 1,
     },
     states: {
       idle: {
@@ -37,6 +42,7 @@ const SmartTable = createMachine<ISmartTableContext>(
           CLEAR: { actions: ["clearFilter"] },
           RESET: { actions: ["resetFilters"] },
           UPDATE: { actions: ["updateFilter"] },
+          PAGE: { actions: ['updatePage' ]},
         },
       },
     },
@@ -46,6 +52,7 @@ const SmartTable = createMachine<ISmartTableContext>(
       clearFilter: clearFilter,
       resetFilters: resetFilters,
       updateFilter: updateFilter,
+      updatePage: updatePage,
     },
   }
 );
