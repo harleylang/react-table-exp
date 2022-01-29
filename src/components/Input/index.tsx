@@ -8,12 +8,14 @@ const Input = ({
   val,
   type,
   setFilter,
+  clearFilter,
 }: {
   min: number;
   max: number;
   val: number;
   type: React.InputHTMLAttributes<HTMLInputElement>["type"];
   setFilter?: (f: Filter) => void;
+  clearFilter?: (id: string) => void;
 }) => {
   const [value, setValue] = useState(val);
   const handleChange = ({ value: v }: EventTarget & HTMLInputElement) => {
@@ -35,7 +37,12 @@ const Input = ({
         },
       });
   };
+  const handleClear = () => {
+    setValue(10);
+    if (clearFilter) clearFilter('number');
+  };
   return (
+    <div>
     <input
       min={min}
       max={max}
@@ -43,6 +50,8 @@ const Input = ({
       type={type}
       onChange={({ currentTarget: t }) => handleChange(t)}
     />
+    <button onClick={handleClear}>Clear Filter</button>
+    </div>
   );
 };
 

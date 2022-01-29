@@ -27,6 +27,7 @@ const TableStateMachine = SmartTable.withConfig(
 const Example1 = () => {
   const [state, useState] = useMachine(TableStateMachine, { devTools: true });
 
+  const clearFilter = (id: string) => { console.log(id); useState('CLEAR', { id }) };
   const updateFilter = (filter: Filter) => useState("UPDATE", { filter });
 
   return (
@@ -38,11 +39,13 @@ const Example1 = () => {
           max={10}
           val={10}
           type={"number"}
+          clearFilter={clearFilter}
           setFilter={updateFilter}
         />
         <RadioGroup
           group="colors"
           options={colourOptions}
+          clearFilter={clearFilter}
           setFilter={updateFilter}
         />
       </FilterRow>

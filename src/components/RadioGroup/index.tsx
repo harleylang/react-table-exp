@@ -6,10 +6,12 @@ const RadioGroup = ({
   group,
   options,
   setFilter,
+  clearFilter,
 }: {
   group: string;
   options: string[];
   setFilter?: (f: Filter) => void;
+  clearFilter?: (id: string) => void;
 }) => {
   const [selected, setSelected] = useState(options[0]);
 
@@ -33,7 +35,10 @@ const RadioGroup = ({
         },
       });
   };
-
+  const handleClear = () => {
+    setSelected('all');
+    if (clearFilter) clearFilter('color');
+  };
   return (
     <div>
       {options.map((option) => (
@@ -49,6 +54,7 @@ const RadioGroup = ({
           <label htmlFor={option}>{option}</label>
         </div>
       ))}
+      <button onClick={handleClear}>Clear Filter</button>
     </div>
   );
 };

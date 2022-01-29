@@ -2,6 +2,7 @@ import { createMachine } from "xstate";
 
 import ITable from "components/Table/ITable";
 import updateFilter from "./updateFilter";
+import clearFilter from "./clearFilter";
 
 export interface ISmartTableContext {
   headerOG: ITable["header"];
@@ -39,7 +40,7 @@ const SmartTable = createMachine<ISmartTableContext>(
   },
   {
     actions: {
-      clearFilter: () => {},
+      clearFilter: clearFilter,
       resetFilters: () => {},
       updateFilter: updateFilter,
     },
