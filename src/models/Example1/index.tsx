@@ -34,6 +34,10 @@ const Example1 = () => {
   TODO:
 
   - sort ascending / descending AFTER filter BEFORE pagination
+    - rename row vars in state so they are more descriptive
+    - first, rename all state actions so they are clearly associated with specific actions (filter, sort, pagae)
+    - mock out ascending / descending component, with PRIORITY LEVELS (sorted in that order within the state machine)
+    - pass along ascending / descending instructions to state machine
   - ICell within "rows" => {
     data: any
     component: JSX.Element
