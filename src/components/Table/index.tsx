@@ -3,24 +3,29 @@ import ITable from "./ITable";
 
 const Table = ({ header, rows }: ITable) => {
   return (
-    <table>
-      <thead>
-        <StyledTr>
-          {header.map((title) => (
-            <th key={`header-key-${title}`}>{title}</th>
-          ))}
-        </StyledTr>
-      </thead>
-      <tbody>
-        {rows.map((row, r) => (
-          <StyledTr key={`row-${r}`}>
-            {row.map((cell, c) => (
-              <StyledTd key={`row-${r}-cell-${c}`}>{cell}</StyledTd>
+    <>
+      <table>
+        <thead>
+          <StyledTr>
+            {header.map((title) => (
+              <th key={`header-key-${title}`}>{title}</th>
             ))}
           </StyledTr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        {rows.length > 0 && (
+          <tbody>
+            {rows.map((row, r) => (
+              <StyledTr key={`row-${r}`}>
+                {row.map((cell, c) => (
+                  <StyledTd key={`row-${r}-cell-${c}`}>{cell}</StyledTd>
+                ))}
+              </StyledTr>
+            ))}
+          </tbody>
+        )}
+      </table>
+      {rows.length === 0 && "NO RESULTS TO DISPLAY"}
+    </>
   );
 };
 
