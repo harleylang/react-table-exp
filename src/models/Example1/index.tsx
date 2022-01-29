@@ -8,6 +8,7 @@ import Table from "components/Table";
 import SmartTable, { Filter } from "machines/SmartTable";
 
 import data from "./data";
+import RadioPagination from "components/RadioPagintion";
 
 const { header, rows } = data;
 const colourOptions = [
@@ -34,7 +35,6 @@ const Example1 = () => {
   TODO:
 
   - sort ascending / descending AFTER filter BEFORE pagination
-  - set pagination
   - documentation of logic
   
   */
@@ -44,10 +44,13 @@ const Example1 = () => {
   const resetFilters = () => updateMachine("RESET");
 
   const handlePage = (page: number) => updateMachine("PAGE", { page });
+  const handlePagination = (pagination: number) =>
+    updateMachine("PAGINATION", { pagination });
 
-  const pageRows = state.context.rowsOG.length === state.context.rowsF.length
-    ? state.context.rowsOG.length
-    : state.context.rowsF.length;
+  const pageRows =
+    state.context.rowsOG.length === state.context.rowsF.length
+      ? state.context.rowsOG.length
+      : state.context.rowsF.length;
 
   const pages = Math.ceil(pageRows / state.context.pagination);
 
@@ -72,6 +75,12 @@ const Example1 = () => {
           setFilter={updateFilter}
         />
         <button onClick={resetFilters}>Clear All Filters</button>
+        <RadioPagination
+          group={"paginationToggle"}
+          options={[5, 10, 20]}
+          defaultOptionI={1}
+          setPagination={handlePagination}
+        />
       </FilterRow>
       <Table header={state.context.header} rows={state.context.rows} />
       <PageNav

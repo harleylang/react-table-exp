@@ -6,11 +6,12 @@ import clearFilter from "./clearFilter";
 import resetFilters from "./resetFilters";
 import updatePage from "./updatePage";
 import paginateRows from "./paginateRows";
+import updatePagination from "./updatePagination";
 
 export interface ISmartTableContext {
   header: ITable["header"];
   rowsOG: ITable["rows"];
-  rowsF: ITable['rows'];
+  rowsF: ITable["rows"];
   rows: ITable["rows"];
   filters: Filter[];
   ripcord: string;
@@ -44,6 +45,7 @@ const SmartTable = createMachine<ISmartTableContext>(
           RESET: { actions: ["resetFilters"], target: "pagination" },
           UPDATE: { actions: ["updateFilter"], target: "pagination" },
           PAGE: { actions: ["updatePage"], target: "pagination" },
+          PAGINATION: { actions: ["updatePagination"], target: "pagination" },
         },
       },
       pagination: {
@@ -60,6 +62,7 @@ const SmartTable = createMachine<ISmartTableContext>(
       resetFilters: resetFilters,
       updateFilter: updateFilter,
       updatePage: updatePage,
+      updatePagination: updatePagination,
       paginateRows: paginateRows,
     },
   }
