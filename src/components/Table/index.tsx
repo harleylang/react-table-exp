@@ -1,6 +1,7 @@
 import styled from "styled-components";
+import ITable from "./ITable";
 
-const Table = ({ header, rows }: { header: string[]; rows: string[][] }) => {
+const Table = ({ header, rows }: ITable) => {
   return (
     <table>
       <thead>

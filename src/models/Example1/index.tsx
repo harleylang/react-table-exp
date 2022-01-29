@@ -1,24 +1,52 @@
+import { useMachine } from "@xstate/react";
 import styled from "styled-components";
 
 import Input from "components/Input";
 import RadioGroup from "components/RadioGroup";
 import Table from "components/Table";
+import SmartTable, { Filter } from "machines/SmartTable";
 
 import data from "./data";
 
+const { header, rows } = data;
+const colourOptions = [
+  "all",
+  ...rows.map((r) => r[2]).filter((v, i, a) => a.indexOf(v) === i),
+];
+const TableStateMachine = SmartTable.withConfig(
+  {},
+  {
+    ...SmartTable.context,
+    headerOG: header,
+    rowsOG: rows,
+    header: header,
+    rows: rows,
+  }
+);
+
 const Example1 = () => {
-  const { header, rows } = data;
-  const colourOptions = rows
-    .map((r) => r[2])
-    .filter((v, i, a) => a.indexOf(v) === i);
+  const [state, useState] = useMachine(TableStateMachine, { devTools: true });
+
+  const updateFilter = (filter: Filter) => useState("UPDATE", { filter });
+
   return (
     <Container>
       <h3>Example 1</h3>
       <FilterRow>
-        <Input min={0} max={10} val={0} type={"number"} />
-        <RadioGroup group="colors" options={colourOptions} />
+        <Input
+          min={0}
+          max={10}
+          val={10}
+          type={"number"}
+          setFilter={updateFilter}
+        />
+        <RadioGroup
+          group="colors"
+          options={colourOptions}
+          setFilter={updateFilter}
+        />
       </FilterRow>
-      <Table header={header} rows={rows} />
+      <Table header={state.context.header} rows={state.context.rows} />
     </Container>
   );
 };
