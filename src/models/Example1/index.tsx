@@ -9,6 +9,7 @@ import SmartTable, { Filter } from "machines/SmartTable";
 
 import data from "./data";
 import RadioPagination from "components/RadioPagintion";
+import ITable from "components/Table/ITable";
 
 const { header, rows } = data;
 const colourOptions = [
@@ -63,6 +64,20 @@ const Example1 = () => {
           max={10}
           val={10}
           type={"number"}
+          filter={(value) => { return {
+            id: "number",
+            logic: (rows: ITable["rows"]) => {
+              // custom logic for handling this input's changes!
+              let targetColumn = 1;
+              let newRows = [];
+              for (let r = 0; r < rows.length; r++) {
+                let row = rows[r];
+                let target = parseInt(row[targetColumn]);
+                if (target <= value) newRows.push(row);
+              }
+              return newRows;
+            },
+          }}}
           clearFilter={clearFilter}
           setFilter={updateFilter}
         />

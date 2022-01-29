@@ -1,4 +1,3 @@
-import ITable from "components/Table/ITable";
 import { Filter } from "machines/SmartTable";
 import { useState } from "react";
 
@@ -7,6 +6,7 @@ const Input = ({
   max,
   val,
   type,
+  filter,
   setFilter,
   clearFilter,
 }: {
@@ -14,6 +14,7 @@ const Input = ({
   max: number;
   val: number;
   type: React.InputHTMLAttributes<HTMLInputElement>["type"];
+  filter?: (value: number) => Filter;
   setFilter?: (f: Filter) => void;
   clearFilter?: (id: string) => void;
 }) => {
@@ -21,21 +22,7 @@ const Input = ({
   const handleChange = ({ value: v }: EventTarget & HTMLInputElement) => {
     let vint = parseInt(v);
     setValue(vint);
-    setFilter &&
-      setFilter({
-        id: "number",
-        logic: (rows: ITable["rows"]) => {
-          // custom logic for handling input changes!
-          let targetColumn = 1;
-          let newRows = [];
-          for (let r = 0; r < rows.length; r++) {
-            let row = rows[r];
-            let target = parseInt(row[targetColumn]);
-            if (target <= vint) newRows.push(row);
-          }
-          return newRows;
-        },
-      });
+    filter && setFilter && setFilter(filter(vint));
   };
   const handleClear = () => {
     setValue(10);
