@@ -46,9 +46,9 @@ const Example1 = () => {
   
   */
 
-  const clearFilter = (id: string) => updateMachine("CLEAR", { id });
-  const updateFilter = (filter: IFilter) => updateMachine("UPDATE", { filter });
-  const resetFilters = () => updateMachine("RESET");
+  const handleFilterClear = (id: string) => updateMachine("FILTER_CLEAR", { id });
+  const handleFilterUpdate = (filter: IFilter) => updateMachine("FILTER_UPDATE", { filter });
+  const handleFilterReset = () => updateMachine("FILTER_RESET");
 
   const handlePage = (page: number) => updateMachine("PAGE", { page });
   const handlePagination = (pagination: number) =>
@@ -85,8 +85,8 @@ const Example1 = () => {
               return newRows;
             },
           }}}
-          clearFilter={clearFilter}
-          setFilter={updateFilter}
+          clearFilter={handleFilterClear}
+          setFilter={handleFilterUpdate}
         />
         <RadioGroup
           key={`radio-color-${state.context.ripcord}`}
@@ -107,10 +107,10 @@ const Example1 = () => {
               return newRows;
             }
           }}}
-          clearFilter={clearFilter}
-          setFilter={updateFilter}
+          clearFilter={handleFilterClear}
+          setFilter={handleFilterUpdate}
         />
-        <button onClick={resetFilters}>Clear All Filters</button>
+        <button onClick={handleFilterReset}>Clear All Filters</button>
         <RadioPagination
           group={"paginationToggle"}
           options={[5, 10, 20]}

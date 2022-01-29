@@ -2,7 +2,7 @@ import { assign } from "xstate";
 
 import { ITableMachineContext } from "../..";
 
-const resetFilters = assign<ITableMachineContext>(
+const filterReset = assign<ITableMachineContext>(
   ({ filters, ripcord, ...rest }: ITableMachineContext) => {
     return {
       ...rest,
@@ -13,4 +13,4 @@ const resetFilters = assign<ITableMachineContext>(
   }
 );
 
-export default resetFilters;
+export default filterReset;

@@ -2,7 +2,7 @@ import { assign } from "xstate";
 
 import { ITableMachineContext, IFilter } from "../..";
 
-const clearFilter = assign<ITableMachineContext>(
+const filterClear = assign<ITableMachineContext>(
   ({ filters, ...rest }: ITableMachineContext, event: any) => {
     let newFilters = filters;
     let filterIdToClear: IFilter["id"] = (event as any).id;
@@ -14,4 +14,4 @@ const clearFilter = assign<ITableMachineContext>(
   }
 );
 
-export default clearFilter;
+export default filterClear;

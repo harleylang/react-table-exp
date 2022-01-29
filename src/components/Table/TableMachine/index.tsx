@@ -1,9 +1,9 @@
 import { createMachine } from "xstate";
 
 import { ITableMachineContext } from "components/Table";
-import updateFilter from "./updateFilter";
-import clearFilter from "./clearFilter";
-import resetFilters from "./resetFilters";
+import filterClear from "./filterClear";
+import filterReset from "./filterReset";
+import filterUpdate from "./filterUpdate";
 import updatePage from "./updatePage";
 import paginateRows from "./paginateRows";
 import updatePagination from "./updatePagination";
@@ -38,9 +38,9 @@ const TableMachine = createMachine<ITableMachineContext>(
       },
       idle: {
         on: {
-          CLEAR: { actions: ["clearFilter"], target: "filtering" },
-          RESET: { actions: ["resetFilters"], target: "filtering" },
-          UPDATE: { actions: ["updateFilter"], target: "filtering" },
+          FILTER_CLEAR: { actions: ["filterClear"], target: "filtering" },
+          FILTER_RESET: { actions: ["filterReset"], target: "filtering" },
+          FILTER_UPDATE: { actions: ["filterUpdate"], target: "filtering" },
           PAGE: { actions: ["updatePage"], target: "filtering" },
           PAGINATION: { actions: ["updatePagination"], target: "filtering" },
         },
@@ -49,9 +49,9 @@ const TableMachine = createMachine<ITableMachineContext>(
   },
   {
     actions: {
-      clearFilter: clearFilter,
-      resetFilters: resetFilters,
-      updateFilter: updateFilter,
+      filterClear: filterClear,
+      filterReset: filterReset,
+      filterUpdate: filterUpdate,
       updatePage: updatePage,
       updatePagination: updatePagination,
       filterRows: filterRows,

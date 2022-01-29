@@ -2,7 +2,7 @@ import { assign } from "xstate";
 
 import { ITableMachineContext, IFilter } from "../..";
 
-const updateFilter = assign<ITableMachineContext>(
+const filterUpdate = assign<ITableMachineContext>(
   ({ filters, ...rest }: ITableMachineContext, event: any) => {
     let newFilters = filters;
     let filterUpdate: IFilter = (event as any).filter;
@@ -19,4 +19,4 @@ const updateFilter = assign<ITableMachineContext>(
   }
 );
 
-export default updateFilter;
+export default filterUpdate;
