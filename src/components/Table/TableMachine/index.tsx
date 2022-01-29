@@ -21,7 +21,7 @@ const TableMachine = createMachine<ITableMachineContext>(
     context: {
       header: [],
       rowsOG: [[]],
-      rowsF: [[]],
+      rowsFiltered: [[]],
       rows: [[]],
       filters: [],
       ripcord: "",

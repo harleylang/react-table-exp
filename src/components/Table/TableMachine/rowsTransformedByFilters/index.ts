@@ -10,10 +10,12 @@ const rowsTransformedByFilters = assign<ITableMachineContext>(
       let fx = filters[f].logic;
       newRows = fx(newRows);
     };
-    return {
+    let newContext: ITableMachineContext = {
       ...rest,
-      rowsF: newRows,
+      filters: filters,
+      rowsFiltered: newRows,
     };
+    return newContext;
   }
 );
 

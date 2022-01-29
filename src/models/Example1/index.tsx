@@ -54,9 +54,9 @@ const Example1 = () => {
     updateMachine("PAGING_LENGTH", { pagination });
 
   const pageRows =
-    state.context.rowsOG.length === state.context.rowsF.length
+    state.context.rowsOG.length === state.context.rowsFiltered.length
       ? state.context.rowsOG.length
-      : state.context.rowsF.length;
+      : state.context.rowsFiltered.length;
 
   const pages = Math.ceil(pageRows / state.context.pagination);
 
