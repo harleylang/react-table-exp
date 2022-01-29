@@ -8,7 +8,7 @@ const filterReset = assign<ITableMachineContext>(
       ...rest,
       filters: [],
       rowsFiltered: rest.rowsOG,
-      ripcord: ripcord + "a",
+      ripcord: ripcord+1,
     };
     return newContext;
   }

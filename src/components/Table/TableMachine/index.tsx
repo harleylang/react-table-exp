@@ -24,7 +24,7 @@ const TableMachine = createMachine<ITableMachineContext>(
       rowsFiltered: [[]],
       rows: [[]],
       filters: [],
-      ripcord: "",
+      ripcord: 0,
       pagination: 10,
       page: 1,
     },
