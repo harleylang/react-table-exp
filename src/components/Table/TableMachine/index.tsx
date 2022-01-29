@@ -12,10 +12,12 @@ import pageLength from "./pageLength";
 import rowsTransformedByFilters from "./rowsTransformedByFilters";
 import rowsTransformedByPagination from "./rowsTransformedByPagination";
 
+import setup from './setup';
+
 const TableMachine = createMachine<ITableMachineContext>(
   {
     id: "tableMachine",
-    initial: "filtering",
+    initial: "init",
     context: {
       header: [],
       rowsOG: [[]],
@@ -27,6 +29,12 @@ const TableMachine = createMachine<ITableMachineContext>(
       page: 1,
     },
     states: {
+      init: {
+        always: {
+          actions: ['setup'],
+          target: 'filtering',
+        }
+      },
       filtering: {
         always: {
           actions: ["rowsTransformedByFilters"],
@@ -59,6 +67,7 @@ const TableMachine = createMachine<ITableMachineContext>(
       pageLength: pageLength,
       rowsTransformedByFilters: rowsTransformedByFilters,
       rowsTransformedByPagination: rowsTransformedByPagination,
+      setup: setup,
     },
   }
 );
