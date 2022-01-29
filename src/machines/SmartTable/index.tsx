@@ -7,6 +7,7 @@ import resetFilters from "./resetFilters";
 import updatePage from "./updatePage";
 import paginateRows from "./paginateRows";
 import updatePagination from "./updatePagination";
+import filterRows from "./filterRows";
 
 export interface ISmartTableContext {
   header: ITable["header"];
@@ -27,7 +28,7 @@ export interface Filter {
 const SmartTable = createMachine<ISmartTableContext>(
   {
     id: "smartTable",
-    initial: "pagination",
+    initial: "filtering",
     context: {
       header: [],
       rowsOG: [[]],
@@ -39,19 +40,25 @@ const SmartTable = createMachine<ISmartTableContext>(
       page: 1,
     },
     states: {
-      idle: {
-        on: {
-          CLEAR: { actions: ["clearFilter"], target: "pagination" },
-          RESET: { actions: ["resetFilters"], target: "pagination" },
-          UPDATE: { actions: ["updateFilter"], target: "pagination" },
-          PAGE: { actions: ["updatePage"], target: "pagination" },
-          PAGINATION: { actions: ["updatePagination"], target: "pagination" },
-        },
+      filtering: {
+        always: {
+          actions: ["filterRows"],
+          target: "paginating"
+        }
       },
-      pagination: {
+      paginating: {
         always: {
           actions: ["paginateRows"],
           target: "idle",
+        },
+      },
+      idle: {
+        on: {
+          CLEAR: { actions: ["clearFilter"], target: "filtering" },
+          RESET: { actions: ["resetFilters"], target: "filtering" },
+          UPDATE: { actions: ["updateFilter"], target: "filtering" },
+          PAGE: { actions: ["updatePage"], target: "filtering" },
+          PAGINATION: { actions: ["updatePagination"], target: "filtering" },
         },
       },
     },
@@ -63,6 +70,7 @@ const SmartTable = createMachine<ISmartTableContext>(
       updateFilter: updateFilter,
       updatePage: updatePage,
       updatePagination: updatePagination,
+      filterRows: filterRows,
       paginateRows: paginateRows,
     },
   }
