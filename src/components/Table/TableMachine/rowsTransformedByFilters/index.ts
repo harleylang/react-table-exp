@@ -2,7 +2,7 @@ import { assign } from "xstate";
 
 import { ITableMachineContext } from "../..";
 
-const filterRows = assign<ITableMachineContext>(
+const rowsTransformedByFilters = assign<ITableMachineContext>(
   ({ filters, ...rest }: ITableMachineContext, event: any) => {
     let newRows = rest.rowsOG;
     // iterate over filter functions
@@ -17,4 +17,4 @@ const filterRows = assign<ITableMachineContext>(
   }
 );
 
-export default filterRows;
+export default rowsTransformedByFilters;

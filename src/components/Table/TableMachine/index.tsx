@@ -1,13 +1,16 @@
 import { createMachine } from "xstate";
 
 import { ITableMachineContext } from "components/Table";
+
 import filterClear from "./filterClear";
 import filterReset from "./filterReset";
 import filterUpdate from "./filterUpdate";
+
 import pageIndex from "./pageIndex";
 import pageLength from "./pageLength";
-import paginateRows from "./paginateRows";
-import filterRows from "./filterRows";
+
+import rowsTransformedByFilters from "./rowsTransformedByFilters";
+import rowsTransformedByPagination from "./rowsTransformedByPagination";
 
 const TableMachine = createMachine<ITableMachineContext>(
   {
@@ -26,13 +29,13 @@ const TableMachine = createMachine<ITableMachineContext>(
     states: {
       filtering: {
         always: {
-          actions: ["filterRows"],
+          actions: ["rowsTransformedByFilters"],
           target: "paginating"
         }
       },
       paginating: {
         always: {
-          actions: ["paginateRows"],
+          actions: ["rowsTransformedByPagination"],
           target: "idle",
         },
       },
@@ -54,8 +57,8 @@ const TableMachine = createMachine<ITableMachineContext>(
       filterUpdate: filterUpdate,
       pageIndex: pageIndex,
       pageLength: pageLength,
-      filterRows: filterRows,
-      paginateRows: paginateRows,
+      rowsTransformedByFilters: rowsTransformedByFilters,
+      rowsTransformedByPagination: rowsTransformedByPagination,
     },
   }
 );
