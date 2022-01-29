@@ -7,10 +7,11 @@ const filterClear = assign<ITableMachineContext>(
     let newFilters = filters;
     let filterIdToClear: IFilter["id"] = (event as any).id;
     newFilters = newFilters.filter((f) => f.id !== filterIdToClear);
-    return {
+    let newContext: ITableMachineContext = {
       ...rest,
       filters: newFilters,
     };
+    return newContext;
   }
 );
 

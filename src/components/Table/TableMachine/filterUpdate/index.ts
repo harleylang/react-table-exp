@@ -11,11 +11,12 @@ const filterUpdate = assign<ITableMachineContext>(
       newFilters[i] = filterUpdate;
     } else {
       newFilters.push(filterUpdate);
-    }
-    return {
+    };
+    let newContext: ITableMachineContext = {
       ...rest,
       filters: newFilters,
     };
+    return newContext;
   }
 );
 

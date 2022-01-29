@@ -3,21 +3,22 @@ import { assign } from "xstate";
 import { ITableMachineContext } from "../..";
 
 const rowsTransformedByPagination = assign<ITableMachineContext>(
-  ({ rowsFiltered, page, pagination, ...rest }: ITableMachineContext) => {
-    let istart = pagination * (page - 1);
+  ({ page, ...rest }: ITableMachineContext) => {
+    let istart = rest.pagination * (page - 1);
     let newPage = page;
-    if (rowsFiltered.length < istart) {
+    if (rest.rowsFiltered.length < istart) {
       // catch case where on page that no longer exists due to filtering
-      newPage = Math.ceil(rowsFiltered.length / pagination);
-      istart = pagination * (newPage - 1);
+      newPage = Math.ceil(rest.rowsFiltered.length / rest.pagination);
+      istart = rest.pagination * (newPage - 1);
     }
-    let iend = istart + pagination;
-    let newRows = rowsFiltered.slice(istart, iend);
-    return {
+    let iend = istart + rest.pagination;
+    let newRows = rest.rowsFiltered.slice(istart, iend);
+    let newContext: ITableMachineContext = {
       ...rest,
       rows: newRows,
       page: newPage,
     };
+    return newContext; 
   }
 );
 

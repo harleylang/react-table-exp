@@ -5,10 +5,11 @@ import { ITableMachineContext } from "../..";
 const pageLength = assign<ITableMachineContext>(
   ({ ...rest }: ITableMachineContext, event: any) => {
     let paginationUpdate: number = (event as any).pagination;
-    return {
+    let newContext: ITableMachineContext = {
       ...rest,
       pagination: paginationUpdate,
     };
+    return newContext;
   }
 );
 
