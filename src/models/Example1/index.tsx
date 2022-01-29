@@ -18,10 +18,9 @@ const TableStateMachine = SmartTable.withConfig(
   {},
   {
     ...SmartTable.context,
-    headerOG: header,
-    rowsOG: rows,
     header: header,
-    rows: rows,
+    rowsOG: rows,
+    rowsF: rows,
   }
 );
 
@@ -30,11 +29,27 @@ const Example1 = () => {
     devTools: true,
   });
 
+  /* 
+  
+  TODO:
+
+  - sort ascending / descending AFTER filter BEFORE pagination
+  - set pagination
+  - documentation of logic
+  
+  */
+
   const clearFilter = (id: string) => updateMachine("CLEAR", { id });
   const updateFilter = (filter: Filter) => updateMachine("UPDATE", { filter });
   const resetFilters = () => updateMachine("RESET");
 
   const handlePage = (page: number) => updateMachine("PAGE", { page });
+
+  const pageRows = state.context.rowsOG.length === state.context.rowsF.length
+    ? state.context.rowsOG.length
+    : state.context.rowsF.length;
+
+  const pages = Math.ceil(pageRows / state.context.pagination);
 
   return (
     <Container>
@@ -59,7 +74,11 @@ const Example1 = () => {
         <button onClick={resetFilters}>Clear All Filters</button>
       </FilterRow>
       <Table header={state.context.header} rows={state.context.rows} />
-      <PageNav pages={state.context.rows.length / state.context.pagination} current={state.context.page} setPage={handlePage} />
+      <PageNav
+        pages={pages}
+        current={state.context.page}
+        setPage={handlePage}
+      />
     </Container>
   );
 };

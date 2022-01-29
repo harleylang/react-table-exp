@@ -3,7 +3,7 @@ import { assign } from "xstate";
 import { ISmartTableContext, Filter } from "..";
 
 const updateFilter = assign<ISmartTableContext>(
-  ({ filters, rows, ...rest }: ISmartTableContext, event: any) => {
+  ({ filters, ...rest }: ISmartTableContext, event: any) => {
     let newRows = rest.rowsOG;
     let newFilters = filters;
     // iterate over existing filters, checking for updates
@@ -22,7 +22,7 @@ const updateFilter = assign<ISmartTableContext>(
     return {
       ...rest,
       filters: newFilters,
-      rows: newRows,
+      rowsF: newRows,
     };
   }
 );

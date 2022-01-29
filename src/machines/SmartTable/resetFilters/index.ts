@@ -7,7 +7,7 @@ const resetFilters = assign<ISmartTableContext>(
     return {
       ...rest,
       filters: [],
-      rows: rest.rowsOG,
+      rowsF: rest.rowsOG,
       ripcord: ripcord + "a",
     };
   }
