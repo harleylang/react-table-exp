@@ -1,9 +1,9 @@
 import { assign } from "xstate";
 
-import { ISmartTableContext } from "..";
+import { ITableMachineContext } from "../..";
 
-const paginateRows = assign<ISmartTableContext>(
-  ({ rowsF, page, pagination, ...rest }: ISmartTableContext) => {
+const paginateRows = assign<ITableMachineContext>(
+  ({ rowsF, page, pagination, ...rest }: ITableMachineContext) => {
     let istart = pagination * (page - 1);
     let newPage = page;
     if (rowsF.length < istart) {

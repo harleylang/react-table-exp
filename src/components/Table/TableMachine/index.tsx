@@ -1,6 +1,6 @@
 import { createMachine } from "xstate";
 
-import ITable from "components/Table/ITable";
+import { ITableMachineContext } from "components/Table";
 import updateFilter from "./updateFilter";
 import clearFilter from "./clearFilter";
 import resetFilters from "./resetFilters";
@@ -9,25 +9,9 @@ import paginateRows from "./paginateRows";
 import updatePagination from "./updatePagination";
 import filterRows from "./filterRows";
 
-export interface ISmartTableContext {
-  header: ITable["header"];
-  rowsOG: ITable["rows"];
-  rowsF: ITable["rows"];
-  rows: ITable["rows"];
-  filters: Filter[];
-  ripcord: string;
-  pagination: number;
-  page: number;
-}
-
-export interface Filter {
-  id: string;
-  logic: (rows: ITable["rows"]) => ITable["rows"];
-}
-
-const SmartTable = createMachine<ISmartTableContext>(
+const TableMachine = createMachine<ITableMachineContext>(
   {
-    id: "smartTable",
+    id: "tableMachine",
     initial: "filtering",
     context: {
       header: [],
@@ -76,4 +60,4 @@ const SmartTable = createMachine<ISmartTableContext>(
   }
 );
 
-export default SmartTable;
+export default TableMachine;

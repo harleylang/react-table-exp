@@ -4,8 +4,7 @@ import styled from "styled-components";
 import Input from "components/Input";
 import PageNav from "components/PageNav";
 import RadioGroup from "components/RadioGroup";
-import Table from "components/Table";
-import SmartTable, { Filter } from "machines/SmartTable";
+import Table, { TableMachine, IFilter } from "components/Table";
 
 import data from "./data";
 import RadioPagination from "components/RadioPagintion";
@@ -16,17 +15,17 @@ const colourOptions = [
   "all",
   ...rows.map((r) => r[2]).filter((v, i, a) => a.indexOf(v) === i),
 ];
-const TableStateMachine = SmartTable.withConfig(
+const configuredTableMachine = TableMachine.withConfig(
   {},
   {
-    ...SmartTable.context,
+    ...TableMachine.context,
     header: header,
     rowsOG: rows,
   }
 );
 
 const Example1 = () => {
-  const [state, updateMachine] = useMachine(TableStateMachine, {
+  const [state, updateMachine] = useMachine(configuredTableMachine, {
     devTools: true,
   });
 
@@ -35,12 +34,16 @@ const Example1 = () => {
   TODO:
 
   - sort ascending / descending AFTER filter BEFORE pagination
+  - ICell within "rows" => {
+    data: any
+    component: JSX.Element
+  } => so that you can filter data, and then put the content within the element you have in mind
   - documentation of logic
   
   */
 
   const clearFilter = (id: string) => updateMachine("CLEAR", { id });
-  const updateFilter = (filter: Filter) => updateMachine("UPDATE", { filter });
+  const updateFilter = (filter: IFilter) => updateMachine("UPDATE", { filter });
   const resetFilters = () => updateMachine("RESET");
 
   const handlePage = (page: number) => updateMachine("PAGE", { page });
@@ -67,7 +70,7 @@ const Example1 = () => {
           filter={(value) => { return {
             id: "number",
             logic: (rows: ITable["rows"]) => {
-              // custom logic for handling this input's changes!
+              // custom logic for handling this input changes!
               let targetColumn = 1;
               let newRows = [];
               for (let r = 0; r < rows.length; r++) {
@@ -88,7 +91,7 @@ const Example1 = () => {
           filter={(value) => { return {
             id: "color",
             logic: (rows: ITable["rows"]) => {
-              // custom logic for handling input changes!
+              // custom logic for handling  changes!
               let targetColumn = 2;
               if (value === "all") return rows;
               let newRows = [];

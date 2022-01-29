@@ -1,4 +1,4 @@
-import { Filter } from "machines/SmartTable";
+import { IFilter } from "components/Table";
 import { useState } from "react";
 
 const Input = ({
@@ -14,8 +14,8 @@ const Input = ({
   max: number;
   val: number;
   type: React.InputHTMLAttributes<HTMLInputElement>["type"];
-  filter?: (value: number) => Filter;
-  setFilter?: (f: Filter) => void;
+  filter?: (value: number) => IFilter;
+  setFilter?: (f: IFilter) => void;
   clearFilter?: (id: string) => void;
 }) => {
   const [value, setValue] = useState(val);

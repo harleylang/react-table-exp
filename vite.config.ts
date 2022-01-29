@@ -7,7 +7,6 @@ export default defineConfig({
   resolve: {
     alias: {
       components: path.resolve(__dirname, "./src/components"),
-      machines: path.resolve(__dirname, "./src/machines"),
       models: path.resolve(__dirname, "./src/models"),
     },
   },

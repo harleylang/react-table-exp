@@ -1,9 +1,9 @@
 import { assign } from "xstate";
 
-import { ISmartTableContext } from "..";
+import { ITableMachineContext } from "../..";
 
-const filterRows = assign<ISmartTableContext>(
-  ({ filters, ...rest }: ISmartTableContext, event: any) => {
+const filterRows = assign<ITableMachineContext>(
+  ({ filters, ...rest }: ITableMachineContext, event: any) => {
     let newRows = rest.rowsOG;
     // iterate over filter functions
     for (let f = 0; f < filters.length; f++) {

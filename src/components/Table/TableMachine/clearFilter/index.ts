@@ -1,11 +1,11 @@
 import { assign } from "xstate";
 
-import { ISmartTableContext, Filter } from "..";
+import { ITableMachineContext, IFilter } from "../..";
 
-const clearFilter = assign<ISmartTableContext>(
-  ({ filters, ...rest }: ISmartTableContext, event: any) => {
+const clearFilter = assign<ITableMachineContext>(
+  ({ filters, ...rest }: ITableMachineContext, event: any) => {
     let newFilters = filters;
-    let filterIdToClear: Filter["id"] = (event as any).id;
+    let filterIdToClear: IFilter["id"] = (event as any).id;
     newFilters = newFilters.filter((f) => f.id !== filterIdToClear);
     return {
       ...rest,

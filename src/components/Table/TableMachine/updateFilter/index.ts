@@ -1,11 +1,11 @@
 import { assign } from "xstate";
 
-import { ISmartTableContext, Filter } from "..";
+import { ITableMachineContext, IFilter } from "../..";
 
-const updateFilter = assign<ISmartTableContext>(
-  ({ filters, ...rest }: ISmartTableContext, event: any) => {
+const updateFilter = assign<ITableMachineContext>(
+  ({ filters, ...rest }: ITableMachineContext, event: any) => {
     let newFilters = filters;
-    let filterUpdate: Filter = (event as any).filter;
+    let filterUpdate: IFilter = (event as any).filter;
     if (newFilters.map((f) => f.id).includes(filterUpdate.id)) {
       let i = newFilters.findIndex((f) => f.id === filterUpdate.id);
       newFilters[i] = filterUpdate;

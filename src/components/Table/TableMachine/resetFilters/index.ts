@@ -1,9 +1,9 @@
 import { assign } from "xstate";
 
-import { ISmartTableContext } from "..";
+import { ITableMachineContext } from "../..";
 
-const resetFilters = assign<ISmartTableContext>(
-  ({ filters, ripcord, ...rest }: ISmartTableContext) => {
+const resetFilters = assign<ITableMachineContext>(
+  ({ filters, ripcord, ...rest }: ITableMachineContext) => {
     return {
       ...rest,
       filters: [],

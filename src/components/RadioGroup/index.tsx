@@ -1,5 +1,4 @@
-import ITable from "components/Table/ITable";
-import { Filter } from "machines/SmartTable";
+import { ITable, IFilter } from "components/Table";
 import { useState } from "react";
 
 const RadioGroup = ({
@@ -11,8 +10,8 @@ const RadioGroup = ({
 }: {
   group: string;
   options: string[];
-  filter?: (value: string) => Filter;
-  setFilter?: (f: Filter) => void;
+  filter?: (value: string) => IFilter;
+  setFilter?: (f: IFilter) => void;
   clearFilter?: (id: string) => void;
 }) => {
   const [selected, setSelected] = useState(options[0]);

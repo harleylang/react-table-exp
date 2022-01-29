@@ -1,9 +1,9 @@
 import { assign } from "xstate";
 
-import { ISmartTableContext } from "..";
+import { ITableMachineContext } from "../..";
 
-const updatePagination = assign<ISmartTableContext>(
-  ({ ...rest }: ISmartTableContext, event: any) => {
+const updatePagination = assign<ITableMachineContext>(
+  ({ ...rest }: ITableMachineContext, event: any) => {
     let paginationUpdate: number = (event as any).pagination;
     return {
       ...rest,
