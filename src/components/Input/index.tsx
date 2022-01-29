@@ -39,18 +39,18 @@ const Input = ({
   };
   const handleClear = () => {
     setValue(10);
-    if (clearFilter) clearFilter('number');
+    if (clearFilter) clearFilter("number");
   };
   return (
     <div>
-    <input
-      min={min}
-      max={max}
-      value={value}
-      type={type}
-      onChange={({ currentTarget: t }) => handleChange(t)}
-    />
-    <button onClick={handleClear}>Clear Filter</button>
+      <input
+        min={min}
+        max={max}
+        value={value}
+        type={type}
+        onChange={({ currentTarget: t }) => handleChange(t)}
+      />
+      <button onClick={handleClear}>Clear Filter</button>
     </div>
   );
 };

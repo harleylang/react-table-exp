@@ -36,8 +36,8 @@ const RadioGroup = ({
       });
   };
   const handleClear = () => {
-    setSelected('all');
-    if (clearFilter) clearFilter('color');
+    setSelected("all");
+    if (clearFilter) clearFilter("color");
   };
   return (
     <div>

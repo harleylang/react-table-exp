@@ -25,16 +25,20 @@ const TableStateMachine = SmartTable.withConfig(
 );
 
 const Example1 = () => {
-  const [state, useState] = useMachine(TableStateMachine, { devTools: true });
+  const [state, updateMachine] = useMachine(TableStateMachine, {
+    devTools: true,
+  });
 
-  const clearFilter = (id: string) => { console.log(id); useState('CLEAR', { id }) };
-  const updateFilter = (filter: Filter) => useState("UPDATE", { filter });
+  const clearFilter = (id: string) => updateMachine("CLEAR", { id });
+  const updateFilter = (filter: Filter) => updateMachine("UPDATE", { filter });
+  const resetFilters = () => updateMachine("RESET");
 
   return (
     <Container>
       <h3>Example 1</h3>
       <FilterRow>
         <Input
+          key={`input-number-${state.context.ripcord}`}
           min={0}
           max={10}
           val={10}
@@ -43,11 +47,13 @@ const Example1 = () => {
           setFilter={updateFilter}
         />
         <RadioGroup
+          key={`radio-color-${state.context.ripcord}`}
           group="colors"
           options={colourOptions}
           clearFilter={clearFilter}
           setFilter={updateFilter}
         />
+        <button onClick={resetFilters}>Clear All Filters</button>
       </FilterRow>
       <Table header={state.context.header} rows={state.context.rows} />
     </Container>

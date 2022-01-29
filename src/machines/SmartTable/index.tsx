@@ -3,6 +3,7 @@ import { createMachine } from "xstate";
 import ITable from "components/Table/ITable";
 import updateFilter from "./updateFilter";
 import clearFilter from "./clearFilter";
+import resetFilters from "./resetFilters";
 
 export interface ISmartTableContext {
   headerOG: ITable["header"];
@@ -10,6 +11,7 @@ export interface ISmartTableContext {
   header: ITable["header"];
   rows: ITable["rows"];
   filters: Filter[];
+  ripcord: string;
 }
 
 export interface Filter {
@@ -27,6 +29,7 @@ const SmartTable = createMachine<ISmartTableContext>(
       header: [],
       rows: [[]],
       filters: [],
+      ripcord: "",
     },
     states: {
       idle: {
@@ -41,7 +44,7 @@ const SmartTable = createMachine<ISmartTableContext>(
   {
     actions: {
       clearFilter: clearFilter,
-      resetFilters: () => {},
+      resetFilters: resetFilters,
       updateFilter: updateFilter,
     },
   }
