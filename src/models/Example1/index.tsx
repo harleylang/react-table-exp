@@ -53,19 +53,10 @@ const Example1 = () => {
     devTools: true,
   });
 
-  /* 
-  
-  TODO:
-  - sort ascending / descending AFTER filter BEFORE pagination
-    - pass along ascending / descending instructions to state machine
-  - documentation of logic
-  */
-
   const handleFilterClear = (id: string) =>
     updateMachine("FILTER_CLEAR", { id });
   const handleFilterUpdate = (filter: IFilter) =>
     updateMachine("FILTER_UPDATE", { filter });
-  const handleFilterReset = () => updateMachine("FILTER_RESET");
 
   const handleSorterClear = (sorter: ISorter) => 
     updateMachine("SORTER_CLEAR", { sorter });
@@ -76,6 +67,8 @@ const Example1 = () => {
     updateMachine("PAGING_INDEX", { page });
   const handlePagingLength = (pagination: number) =>
     updateMachine("PAGING_LENGTH", { pagination });
+
+  const handleReset = () => updateMachine("RESET");
 
   const pageRows =
     state.context.rowsOG.length === state.context.rowsFiltered.length
@@ -137,7 +130,7 @@ const Example1 = () => {
           clearFilter={handleFilterClear}
           setFilter={handleFilterUpdate}
         />
-        <button onClick={handleFilterReset}>Clear All Filters</button>
+        <button onClick={handleReset}>Clear All Filters and Sorters</button>
         <RadioPagination
           group={"paginationToggle"}
           options={[5, 10, 20, 50]}

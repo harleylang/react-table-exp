@@ -2,16 +2,18 @@ import { assign } from "xstate";
 
 import { ITableMachineContext } from "../..";
 
-const filterReset = assign<ITableMachineContext>(
-  ({ filters, ripcord, ...rest }: ITableMachineContext) => {
+const reset = assign<ITableMachineContext>(
+  ({ filters, sorters, ripcord, ...rest }: ITableMachineContext) => {
     let newContext: ITableMachineContext = {
       ...rest,
       filters: [],
-      rowsFiltered: rest.rowsOG,
+      sorters: [],
+      rowsFiltered: [],
+      rowsSorted: [],
       ripcord: ripcord + 1,
     };
     return newContext;
   }
 );
 
-export default filterReset;
+export default reset;

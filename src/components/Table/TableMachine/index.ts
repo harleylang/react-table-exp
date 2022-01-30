@@ -3,14 +3,16 @@ import { createMachine } from "xstate";
 import { ITableMachineContext } from "components/Table";
 
 import filterClear from "./filterClear";
-import filterReset from "./filterReset";
 import filterUpdate from "./filterUpdate";
 
 import pageIndex from "./pageIndex";
 import pageLength from "./pageLength";
 
+import reset from "./reset";
+
 import rowsTransformedByFilters from "./rowsTransformedByFilters";
 import rowsTransformedByPagination from "./rowsTransformedByPagination";
+import rowsTransformedBySorters from "./rowsTransformedBySorters";
 
 import setup from "./setup";
 
@@ -58,6 +60,7 @@ const TableMachine = createMachine<ITableMachineContext>(
       header: [],
       rowsOG: [[]],
       rowsFiltered: [[]],
+      rowsSorted: [[]],
       rows: [[]],
       filters: [],
       sorters: [],
@@ -80,7 +83,7 @@ const TableMachine = createMachine<ITableMachineContext>(
       },
       sorting: {
         always: {
-          // TODO: setup action to handle sorting here
+          actions: ["rowsTransformedBySorters"],
           target: "paginating",
         },
       },
@@ -93,10 +96,10 @@ const TableMachine = createMachine<ITableMachineContext>(
       idle: {
         on: {
           FILTER_CLEAR: { actions: ["filterClear"], target: "filtering" },
-          FILTER_RESET: { actions: ["filterReset"], target: "filtering" },
           FILTER_UPDATE: { actions: ["filterUpdate"], target: "filtering" },
           PAGING_INDEX: { actions: ["pageIndex"], target: "filtering" },
           PAGING_LENGTH: { actions: ["pageLength"], target: "filtering" },
+          RESET: { actions: ["reset"], target: "filtering" },
           SORTER_CLEAR: { actions: ["sorterClear"], target: "filtering" },
           SORTER_UPDATE: { actions: ["sorterUpdate"], target: "filtering" },
         },
@@ -106,12 +109,13 @@ const TableMachine = createMachine<ITableMachineContext>(
   {
     actions: {
       filterClear: filterClear,
-      filterReset: filterReset,
       filterUpdate: filterUpdate,
       pageIndex: pageIndex,
       pageLength: pageLength,
+      reset: reset,
       rowsTransformedByFilters: rowsTransformedByFilters,
       rowsTransformedByPagination: rowsTransformedByPagination,
+      rowsTransformedBySorters: rowsTransformedBySorters,
       setup: setup,
       sorterClear: sorterClear,
       sorterUpdate: sorterUpdate,

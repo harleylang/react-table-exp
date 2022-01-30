@@ -25,6 +25,7 @@ export default interface ITableMachineContext {
   header: ITable["header"];
   rowsOG: ITable["rows"];
   rowsFiltered: ITable["rows"];
+  rowsSorted: ITable["rows"];
   rows: ITable["rows"];
   filters: IFilter[];
   sorters: ISorter[];
