@@ -20,7 +20,6 @@ const RadioGroup = ({
     let value = event.currentTarget.value;
     setSelected(value);
     filter && setFilter && setFilter(filter(value));
-
   };
   const handleClear = () => {
     setSelected("all");

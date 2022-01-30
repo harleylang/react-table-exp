@@ -11,7 +11,7 @@ const filterUpdate = assign<ITableMachineContext>(
       newFilters[i] = filterUpdate;
     } else {
       newFilters.push(filterUpdate);
-    };
+    }
     let newContext: ITableMachineContext = {
       ...rest,
       filters: newFilters,

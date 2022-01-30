@@ -18,8 +18,8 @@ const rowsTransformedByPagination = assign<ITableMachineContext>(
       rows: newRows,
       page: newPage,
     };
-    return newContext; 
+    return newContext;
   }
 );
 
-export default rowsTransformedByPagination; 
+export default rowsTransformedByPagination;

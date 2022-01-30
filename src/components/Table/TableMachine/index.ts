@@ -12,7 +12,7 @@ import pageLength from "./pageLength";
 import rowsTransformedByFilters from "./rowsTransformedByFilters";
 import rowsTransformedByPagination from "./rowsTransformedByPagination";
 
-import setup from './setup';
+import setup from "./setup";
 
 /**
  * TableMachine -- state machine
@@ -64,21 +64,21 @@ const TableMachine = createMachine<ITableMachineContext>(
     states: {
       init: {
         always: {
-          actions: ['setup'],
-          target: 'filtering',
-        }
+          actions: ["setup"],
+          target: "filtering",
+        },
       },
       filtering: {
         always: {
           actions: ["rowsTransformedByFilters"],
-          target: "sorting"
-        }
+          target: "sorting",
+        },
       },
       sorting: {
         always: {
           // TODO: setup action to handle sorting here
-          target: 'paginating'
-        }
+          target: "paginating",
+        },
       },
       paginating: {
         always: {

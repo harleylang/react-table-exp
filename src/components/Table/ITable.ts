@@ -1,8 +1,9 @@
-import ITableCell from './ITableCell';
+import ITableCell from "./ITableCell";
+import ITableTh from "./TableTh/ITableTh";
 
 interface ITable {
-  header: ITableCell[];
+  header: ITableTh[];
   rows: ITableCell[][];
-};
+}
 
 export default ITable;

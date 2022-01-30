@@ -1,14 +1,29 @@
 import styled from "styled-components";
+import ISorter from "./ISorter";
 import ITable from "./ITable";
+import TableTh from "./TableTh/TableTh";
 
-const Table = ({ header, rows }: ITable) => {
+const Table = ({
+  header,
+  rows,
+  setSorter,
+  clearSorter,
+}: ITable & {
+  setSorter?: (f: ISorter) => void;
+  clearSorter?: (f: ISorter) => void;
+}) => {
   return (
     <>
       <table>
         <thead>
           <StyledTr>
             {header.map((cell) => (
-              <th key={`header-key-${cell.data}`}>{cell.component(cell.data)}</th>
+              <TableTh
+                key={`header-key-${cell.data}`}
+                {...cell}
+                setSorter={setSorter}
+                clearSorter={clearSorter}
+              />
             ))}
           </StyledTr>
         </thead>
@@ -17,7 +32,9 @@ const Table = ({ header, rows }: ITable) => {
             {rows.map((row, r) => (
               <StyledTr key={`row-${r}`}>
                 {row.map((cell, c) => (
-                  <StyledTd key={`row-${r}-cell-${c}`}>{cell.component(cell.data)}</StyledTd>
+                  <StyledTd key={`row-${r}-cell-${c}`}>
+                    {cell.component(cell.data)}
+                  </StyledTd>
                 ))}
               </StyledTr>
             ))}

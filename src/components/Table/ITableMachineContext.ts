@@ -14,7 +14,7 @@ import { ITable, IFilter } from ".";
  * reducing itself following filters, sorting, and pagination.
  * @param ripcord {number} An incremented value that is triggered when filters are reset.
  * Bind this value to a string-literal key (e.g., `input-colour-${state.context.ripcord})`) to
- * refresh all filters when the user triggers the "FILTERS_RESET" action. Changing a react 
+ * refresh all filters when the user triggers the "FILTERS_RESET" action. Changing a react
  * component's key will force a rerendering of that component.
  * @param pagination {number} The current pagination length.
  * @param page {number} The current page of the table that the user is viewing.

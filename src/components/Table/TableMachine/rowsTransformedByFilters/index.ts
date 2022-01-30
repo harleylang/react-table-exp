@@ -9,7 +9,7 @@ const rowsTransformedByFilters = assign<ITableMachineContext>(
     for (let f = 0; f < filters.length; f++) {
       let fx = filters[f].logic;
       newRows = fx(newRows);
-    };
+    }
     let newContext: ITableMachineContext = {
       ...rest,
       filters: filters,

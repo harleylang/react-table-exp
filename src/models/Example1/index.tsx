@@ -19,9 +19,30 @@ const configuredTableMachine = TableMachine.withConfig(
   {},
   {
     ...TableMachine.context,
-    header: header.map(h => { return { data: h, component: (data: string) => { return <u>{data}</u> } }}),
-    rows: rows.map(r => { 
-      return r.map(c => { return { data: c, component: (data: string) => { return <i>{data}</i> } } })
+    header: header.map((h) => {
+      return {
+        data: h,
+        component: (data: string) => {
+          return <u>{data}</u>;
+        },
+        sorter:
+          h !== "Date"
+            ? {
+                id: `sorter-${h}`,
+                logic: (data: any) => data,
+              }
+            : undefined,
+      };
+    }),
+    rows: rows.map((r) => {
+      return r.map((c) => {
+        return {
+          data: c,
+          component: (data: string) => {
+            return <i>{data}</i>;
+          },
+        };
+      });
     }),
   }
 );
@@ -35,17 +56,18 @@ const Example1 = () => {
   
   TODO:
   - sort ascending / descending AFTER filter BEFORE pagination
-    - mock out ascending / descending component, with PRIORITY LEVELS (sorted in that order within the state machine)
     - pass along ascending / descending instructions to state machine
   - documentation of logic
-  
   */
 
-  const handleFilterClear = (id: string) => updateMachine("FILTER_CLEAR", { id });
-  const handleFilterUpdate = (filter: IFilter) => updateMachine("FILTER_UPDATE", { filter });
+  const handleFilterClear = (id: string) =>
+    updateMachine("FILTER_CLEAR", { id });
+  const handleFilterUpdate = (filter: IFilter) =>
+    updateMachine("FILTER_UPDATE", { filter });
   const handleFilterReset = () => updateMachine("FILTER_RESET");
 
-  const handlePagingIndex = (page: number) => updateMachine("PAGING_INDEX", { page });
+  const handlePagingIndex = (page: number) =>
+    updateMachine("PAGING_INDEX", { page });
   const handlePagingLength = (pagination: number) =>
     updateMachine("PAGING_LENGTH", { pagination });
 
@@ -66,20 +88,22 @@ const Example1 = () => {
           max={10}
           val={10}
           type={"number"}
-          filter={(value) => { return {
-            id: "number",
-            logic: (rows: ITable["rows"]) => {
-              // custom logic for handling this input changes!
-              let targetColumn = 1;
-              let newRows = [];
-              for (let r = 0; r < rows.length; r++) {
-                let row = rows[r];
-                let target = parseInt(row[targetColumn].data);
-                if (target <= value) newRows.push(row);
-              }
-              return newRows;
-            },
-          }}}
+          filter={(value) => {
+            return {
+              id: "number",
+              logic: (rows: ITable["rows"]) => {
+                // custom logic for handling this input changes!
+                let targetColumn = 1;
+                let newRows = [];
+                for (let r = 0; r < rows.length; r++) {
+                  let row = rows[r];
+                  let target = parseInt(row[targetColumn].data);
+                  if (target <= value) newRows.push(row);
+                }
+                return newRows;
+              },
+            };
+          }}
           clearFilter={handleFilterClear}
           setFilter={handleFilterUpdate}
         />
@@ -87,21 +111,23 @@ const Example1 = () => {
           key={`radio-color-${state.context.ripcord}`}
           group="colors"
           options={colourOptions}
-          filter={(value) => { return {
-            id: "color",
-            logic: (rows: ITable["rows"]) => {
-              // custom logic for handling  changes!
-              let targetColumn = 2;
-              if (value === "all") return rows;
-              let newRows = [];
-              for (let r = 0; r < rows.length; r++) {
-                let row = rows[r];
-                let target = row[targetColumn].data;
-                if (target === value) newRows.push(row);
-              }
-              return newRows;
-            }
-          }}}
+          filter={(value) => {
+            return {
+              id: "color",
+              logic: (rows: ITable["rows"]) => {
+                // custom logic for handling  changes!
+                let targetColumn = 2;
+                if (value === "all") return rows;
+                let newRows = [];
+                for (let r = 0; r < rows.length; r++) {
+                  let row = rows[r];
+                  let target = row[targetColumn].data;
+                  if (target === value) newRows.push(row);
+                }
+                return newRows;
+              },
+            };
+          }}
           clearFilter={handleFilterClear}
           setFilter={handleFilterUpdate}
         />
@@ -113,7 +139,13 @@ const Example1 = () => {
           setPagination={handlePagingLength}
         />
       </FilterRow>
-      <Table header={state.context.header} rows={state.context.rows} />
+      <Table
+        key={`table-${state.context.ripcord}`}
+        header={state.context.header}
+        rows={state.context.rows}
+        setSorter={(e) => console.log(e)}
+        clearSorter={(e) => console.log(e)}
+      />
       <PageNav
         pages={pages}
         current={state.context.page}
