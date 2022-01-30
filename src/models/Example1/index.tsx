@@ -19,7 +19,7 @@ const configuredTableMachine = TableMachine.withConfig(
   {},
   {
     ...TableMachine.context,
-    header: header.map((h) => {
+    header: header.map((h, i) => {
       return {
         data: h,
         component: (data: string) => {
@@ -29,7 +29,7 @@ const configuredTableMachine = TableMachine.withConfig(
           h !== "Date"
             ? {
                 id: `sorter-${h}`,
-                logic: (data: any) => data,
+                coli: i
               }
             : undefined,
       };
