@@ -7,8 +7,8 @@ const Table = ({ header, rows }: ITable) => {
       <table>
         <thead>
           <StyledTr>
-            {header.map((title) => (
-              <th key={`header-key-${title}`}>{title}</th>
+            {header.map((cell) => (
+              <th key={`header-key-${cell.data}`}>{cell.component(cell.data)}</th>
             ))}
           </StyledTr>
         </thead>
@@ -17,7 +17,7 @@ const Table = ({ header, rows }: ITable) => {
             {rows.map((row, r) => (
               <StyledTr key={`row-${r}`}>
                 {row.map((cell, c) => (
-                  <StyledTd key={`row-${r}-cell-${c}`}>{cell}</StyledTd>
+                  <StyledTd key={`row-${r}-cell-${c}`}>{cell.component(cell.data)}</StyledTd>
                 ))}
               </StyledTr>
             ))}

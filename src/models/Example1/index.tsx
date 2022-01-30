@@ -19,8 +19,10 @@ const configuredTableMachine = TableMachine.withConfig(
   {},
   {
     ...TableMachine.context,
-    header: header,
-    rows: rows,
+    header: header.map(h => { return { data: h, component: (data: string) => { return <u>{data}</u> } }}),
+    rows: rows.map(r => { 
+      return r.map(c => { return { data: c, component: (data: string) => { return <i>{data}</i> } } })
+    }),
   }
 );
 
@@ -35,10 +37,6 @@ const Example1 = () => {
   - sort ascending / descending AFTER filter BEFORE pagination
     - mock out ascending / descending component, with PRIORITY LEVELS (sorted in that order within the state machine)
     - pass along ascending / descending instructions to state machine
-  - ICell within "rows" => {
-    data: any
-    component: JSX.Element
-  } => so that you can filter data, and then put the content within the element you have in mind
   - documentation of logic
   
   */
@@ -76,7 +74,7 @@ const Example1 = () => {
               let newRows = [];
               for (let r = 0; r < rows.length; r++) {
                 let row = rows[r];
-                let target = parseInt(row[targetColumn]);
+                let target = parseInt(row[targetColumn].data);
                 if (target <= value) newRows.push(row);
               }
               return newRows;
@@ -98,7 +96,7 @@ const Example1 = () => {
               let newRows = [];
               for (let r = 0; r < rows.length; r++) {
                 let row = rows[r];
-                let target = row[targetColumn];
+                let target = row[targetColumn].data;
                 if (target === value) newRows.push(row);
               }
               return newRows;

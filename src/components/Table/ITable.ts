@@ -1,6 +1,8 @@
+import ITableCell from './ITableCell';
+
 interface ITable {
-  header: string[];
-  rows: string[][];
-}
+  header: ITableCell[];
+  rows: ITableCell[][];
+};
 
 export default ITable;
