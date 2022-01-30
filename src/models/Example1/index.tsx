@@ -9,6 +9,7 @@ import Table, { TableMachine, IFilter } from "components/Table";
 import data from "./data";
 import RadioPagination from "components/RadioPagintion";
 import ITable from "components/Table/ITable";
+import ISorter from "components/Table/ISorter";
 
 const { header, rows } = data;
 const colourOptions = [
@@ -65,6 +66,11 @@ const Example1 = () => {
   const handleFilterUpdate = (filter: IFilter) =>
     updateMachine("FILTER_UPDATE", { filter });
   const handleFilterReset = () => updateMachine("FILTER_RESET");
+
+  const handleSorterClear = (sorter: ISorter) => 
+    updateMachine("SORTER_CLEAR", { sorter });
+  const handleSorterUpdate = (sorter: ISorter) => 
+    updateMachine("SORTER_UPDATE", { sorter });
 
   const handlePagingIndex = (page: number) =>
     updateMachine("PAGING_INDEX", { page });
@@ -143,8 +149,8 @@ const Example1 = () => {
         key={`table-${state.context.ripcord}`}
         header={state.context.header}
         rows={state.context.rows}
-        setSorter={(e) => console.log(e)}
-        clearSorter={(e) => console.log(e)}
+        setSorter={handleSorterUpdate}
+        clearSorter={handleSorterClear}
       />
       <PageNav
         pages={pages}

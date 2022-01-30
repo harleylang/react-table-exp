@@ -1,4 +1,4 @@
-import { ITable, IFilter } from ".";
+import { ITable, IFilter, ISorter } from ".";
 
 /**
  * ITableMachineContext -- interface
@@ -12,6 +12,8 @@ import { ITable, IFilter } from ".";
  * to the user. This value can be configured at start-up of the machine, as the initialize
  * state will save a copy to rowOG. Thereafter, this value is what remains of the rows after
  * reducing itself following filters, sorting, and pagination.
+ * @param filters {IFilter[]} The filter logic applied to rowsOG during state updates.
+ * @param sorters {ISorter[]} The sort logic applied to rowsFiltered during state updates.
  * @param ripcord {number} An incremented value that is triggered when filters are reset.
  * Bind this value to a string-literal key (e.g., `input-colour-${state.context.ripcord})`) to
  * refresh all filters when the user triggers the "FILTERS_RESET" action. Changing a react
@@ -25,6 +27,7 @@ export default interface ITableMachineContext {
   rowsFiltered: ITable["rows"];
   rows: ITable["rows"];
   filters: IFilter[];
+  sorters: ISorter[];
   ripcord: number;
   pagination: number;
   page: number;

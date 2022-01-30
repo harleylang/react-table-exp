@@ -14,6 +14,9 @@ import rowsTransformedByPagination from "./rowsTransformedByPagination";
 
 import setup from "./setup";
 
+import sorterClear from "./sorterClear";
+import sorterUpdate from "./sorterUpdate";
+
 /**
  * TableMachine -- state machine
  * @description
@@ -57,6 +60,7 @@ const TableMachine = createMachine<ITableMachineContext>(
       rowsFiltered: [[]],
       rows: [[]],
       filters: [],
+      sorters: [],
       ripcord: 0,
       pagination: 10,
       page: 1,
@@ -93,6 +97,8 @@ const TableMachine = createMachine<ITableMachineContext>(
           FILTER_UPDATE: { actions: ["filterUpdate"], target: "filtering" },
           PAGING_INDEX: { actions: ["pageIndex"], target: "filtering" },
           PAGING_LENGTH: { actions: ["pageLength"], target: "filtering" },
+          SORTER_CLEAR: { actions: ["sorterClear"], target: "filtering" },
+          SORTER_UPDATE: { actions: ["sorterUpdate"], target: "filtering" },
         },
       },
     },
@@ -107,6 +113,8 @@ const TableMachine = createMachine<ITableMachineContext>(
       rowsTransformedByFilters: rowsTransformedByFilters,
       rowsTransformedByPagination: rowsTransformedByPagination,
       setup: setup,
+      sorterClear: sorterClear,
+      sorterUpdate: sorterUpdate,
     },
   }
 );
